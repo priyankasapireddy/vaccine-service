@@ -7,6 +7,7 @@ import com.curelight.vaccineservice.repository.ContactRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +64,15 @@ public class ContactService {
             throw  new NoContactFoundException(1L )  ;
         }
     }
+
+    public Contact findByPhoneNumber(String phone) {
+        Optional<ContactEntity> optionalContactEntity = contactRepository.findByPhoneNumber(phone);
+        if(optionalContactEntity.isPresent()){
+            return mapper.convertValue(optionalContactEntity.get(), Contact.class);
+        }else {
+            throw  new NoContactFoundException(1L )  ;
+        }
+    }
+
 
 }

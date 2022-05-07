@@ -3,6 +3,7 @@ package com.curelight.vaccineservice.controller;
 import com.curelight.vaccineservice.dto.Contact;
 import com.curelight.vaccineservice.service.ContactService;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,10 +38,16 @@ public class ContactController {
         contactService.deleteContact(id);
     }
 
-    @GetMapping(value = "/emailId/{emailId}", produces = "application/json")
+    @GetMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
-    public Contact getContactByEmailId(@PathVariable String  emailId){
-        return contactService.findContactByEmailId(emailId);
+    public Contact getContactByEmailId(@RequestParam(required = false) String emailId,
+                                       @RequestParam(required = false) String phone){
+        if(StringUtils.hasLength(emailId)){
+            return contactService.findContactByEmailId(emailId);
+        }else if(StringUtils.hasLength(phone)){
+            return contactService.findByPhoneNumber(phone);
+        }
+        return null;
     }
 
 
