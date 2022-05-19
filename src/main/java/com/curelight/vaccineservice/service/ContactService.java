@@ -36,10 +36,8 @@ public class ContactService {
 
 //        RestTemplate restTemplate = new RestTemplate();
 
-        String fooResourceUrl
-                = "https://api.us.castlighthealth.com/vaccine-finder/v1/medications?category=covid";
-        ResponseEntity<Vaccine[]> response
-                = restTemplate.getForEntity(fooResourceUrl, Vaccine[].class);
+        String fooResourceUrl = "https://api.us.castlighthealth.com/vaccine-finder/v1/medications?category=covid";
+        ResponseEntity<Vaccine[]> response = restTemplate.getForEntity(fooResourceUrl, Vaccine[].class);
 
         Vaccine[] vaccines = response.getBody();
 
